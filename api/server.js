@@ -141,4 +141,36 @@ server.post('/api/projects', (req, res) => {
     );
 });
 
+server.put('/api/projects/:id', (req, res) => {
+  const { id } = req.params;
+  project
+    .update(id, req.body)
+    .then(count => res.status(201).json(count))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your project could not be updated.', error: err })
+    );
+});
+
+// getProjectActions()
+server.get('/api/projects/actions/:id', (req, res) => {
+  const { id } = req.params;
+  project
+    .getProjectActions(id)
+    .then(list => {
+      list.length > 0
+        ? res.status(200).json(list)
+        : res
+            .status(404)
+            .json({ Message: 'The project does not exist/has no actions.' });
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: 'Actions for the specified project could not be retrieved.',
+        error: err
+      });
+    });
+});
+
 module.exports = server;
