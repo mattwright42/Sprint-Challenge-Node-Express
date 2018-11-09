@@ -118,4 +118,16 @@ server.get('/api/projects/:id', (req, res) => {
     });
 });
 
+server.delete('/api/projects/:id', (req, res) => {
+  const { id } = req.params;
+  project
+    .remove(id)
+    .then(count => res.status(200).json(count))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your project could not be deleted.', error: err })
+    );
+});
+
 module.exports = server;
