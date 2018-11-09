@@ -70,6 +70,17 @@ server.post('/api/actions', (req, res) => {
     );
 });
 
+server.put('/api/actions/:id', (req, res) => {
+  action
+    .update(req.params.id, req.body)
+    .then(count => res.status(201).json(count))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your action could not be updated.', error: err })
+    );
+});
+
 // routes for projects
 
 module.exports = server;
