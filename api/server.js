@@ -71,8 +71,9 @@ server.post('/api/actions', (req, res) => {
 });
 
 server.put('/api/actions/:id', (req, res) => {
+  const { id } = req.params;
   action
-    .update(req.params.id, req.body)
+    .update(id, req.body)
     .then(count => res.status(201).json(count))
     .catch(err =>
       res
@@ -87,6 +88,27 @@ server.get('/api/projects', (req, res) => {
     .get()
     .then(projects => {
       res.status(200).json(projects);
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: 'The project information could not be retrieved.',
+        error: err
+      });
+    });
+});
+
+server.get('/api/projects/:id', (req, res) => {
+  const { id } = req.params;
+  project
+    .get(id)
+    .then(project => {
+      if (project) {
+        res.status(200).json(project);
+      } else {
+        res.status(404).json({
+          message: 'The project with the specified ID does not exist.'
+        });
+      }
     })
     .catch(err => {
       res.status(500).json({
