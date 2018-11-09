@@ -59,6 +59,17 @@ server.delete('/api/actions/:id', (req, res) => {
     );
 });
 
+server.post('/api/actions', (req, res) => {
+  action
+    .insert(req.body)
+    .then(success => res.status(201).json(success))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your action could not be added.', error: err })
+    );
+});
+
 // routes for projects
 
 module.exports = server;
