@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-function NoteForm(props) {
+function ProjectForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
 
