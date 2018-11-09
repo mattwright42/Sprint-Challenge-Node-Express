@@ -47,6 +47,18 @@ server.get('/api/actions/:id', (req, res) => {
     });
 });
 
+server.delete('/api/actions/:id', (req, res) => {
+  const { id } = req.params;
+  action
+    .remove(id)
+    .then(count => res.status(200).json(count))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your action could not be deleted.', error: err })
+    );
+});
+
 // routes for projects
 
 module.exports = server;
