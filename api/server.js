@@ -130,4 +130,15 @@ server.delete('/api/projects/:id', (req, res) => {
     );
 });
 
+server.post('/api/projects', (req, res) => {
+  project
+    .insert(req.body)
+    .then(success => res.status(201).json(success))
+    .catch(err =>
+      res
+        .status(400)
+        .json({ message: 'Your project could not be added.', error: err })
+    );
+});
+
 module.exports = server;
