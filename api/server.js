@@ -82,5 +82,18 @@ server.put('/api/actions/:id', (req, res) => {
 });
 
 // routes for projects
+server.get('/api/projects', (req, res) => {
+  project
+    .get()
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(err => {
+      res.status(500).json({
+        message: 'The project information could not be retrieved.',
+        error: err
+      });
+    });
+});
 
 module.exports = server;
